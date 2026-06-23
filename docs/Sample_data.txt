@@ -1,0 +1,107 @@
+KAIZEN - Intelligent Multi-Agent Coding Assistant
+KAIZEN is an Agentic AI coding assistant that can take a software development task written in natural language and automatically generate, test, document, and commit code.
+The system uses a multi-agent architecture built with LangGraph. Each agent has a specific responsibility and works together with other agents to complete the task.
+
+Mentors:
+1. Neelay
+2. Kavya
+3. Tanmay
+
+Planner Agent:
+- Understands the user's request.
+- Breaks the request into smaller tasks.
+- Creates an execution plan.
+
+Coder Agent:
+- Generates and modifies code.
+- Uses information from the existing codebase through a RAG pipeline.
+- Ensures generated code fits the current project.
+
+Test Agent:
+- Creates test cases.
+- Runs tests automatically.
+- If tests fail, sends the error details back to the Coder Agent for correction.
+
+Documentation Agent:
+- Updates project documentation whenever code changes are made.
+- Keeps documentation synchronized with the codebase.
+
+GitHub Agent:
+- Creates commit messages based on code changes.
+- Handles Git operations and pull request creation.
+
+RAG Agent:
+- Indexes the entire repository.
+- Stores function-level and class-level information in ChromaDB.
+- Retrieves relevant project context for other agents.
+- Helps agents understand the existing codebase before generating code.
+
+The RAG pipeline works by:
+1. Scanning repository files.
+2. Extracting functions and classes.
+3. Generating embeddings.
+4. Storing embeddings in ChromaDB.
+5. Retrieving relevant code context when needed.
+
+The system uses MCP (Model Context Protocol) for communication between agents and tools.
+
+MCP provides access to:
+- File operations.
+- Terminal execution.
+- Git operations.
+- Vector database search.
+- Other development tools.
+
+Benefits of MCP:
+- Secure tool access.
+- Modular architecture.
+- Auditable agent actions.
+
+The user interface is built using:
+- Monaco Editor for code editing.
+- Electron for the desktop application.
+
+The interface shows agent activities in real time.
+
+KAIZEN also includes a custom Small Language Model (SLM).
+
+Purpose of the SLM:
+- Perform task planning locally.
+- Reduce dependence on external APIs.
+- Generate structured execution plans from developer instructions.
+
+Possible base models:
+- Phi-3-mini
+- Qwen2-1.5B
+
+Model size:
+- 1B to 3B parameters
+
+Model training process:
+1. Create a dataset of developer instructions and execution plans.
+2. Fine-tune the model using QLoRA.
+3. Quantize the model into GGUF format.
+4. Deploy the model for local inference.
+
+Technologies used:
+- LangGraph
+- ChromaDB
+- MCP (Model Context Protocol)
+- Monaco Editor
+- Electron
+- Phi-3-mini
+- Qwen2-1.5B
+- QLoRA
+- GGUF
+- GitHub
+
+Overall workflow:
+1. User submits a development request.
+2. Planner Agent creates a task plan.
+3. RAG Agent retrieves relevant code context.
+4. Coder Agent implements the solution.
+5. Test Agent generates and runs tests.
+6. Failed tests are corrected automatically.
+7. Documentation Agent updates project documentation.
+8. GitHub Agent creates commits and pull requests.
+9. Final tested and documented code is delivered to the user.
